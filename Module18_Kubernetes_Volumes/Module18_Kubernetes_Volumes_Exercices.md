@@ -4,7 +4,7 @@ Dans kubernetes, la persistance est généré à partir des volumes persistants 
 
 Pour utiliser un stockage persistant, vous devez créer un objet PersistantVolume (PV) pour réserver de l'espace. Cette opération est généralement faite par un administrateur système qui peut en créer avec différentes caractéristiques : vitesse, type de support, redondance, etc. Une fois le volume persistant créé, les développeurs font un objet de type PersistantVolumeClaim (PVC).
 
-Dans notre configuration, je vous ai créé un partage NFS sur le serveur maître qui se trouve à l'adresse 10.100.1.6. Le répertoire du partage est "/srv/exports"
+Dans notre configuration, je vous ai créé un partage NFS sur le serveur maître qui se trouve à l'adresse 10.100.2.90. Le répertoire du partage est "/srv/exports"
 
 Pour la suite des exercices, vos PV auront un seule PVC. Vos PV doivent pointer vers le répertoire suivant : /srv/exports/<numéro_matricule>/<nom_voulu_pour_partage>.
 
@@ -27,7 +27,7 @@ spec:
   accessModes:
   - ReadWriteMany
   nfs:
-    server: 10.100.1.6
+    server: 10.100.2.90
     path: "/srv/exports/pfleon/nginx"
 ```
 
@@ -81,7 +81,7 @@ Activez le client pour NFS en allant dans les fonctionnalités Windows :
 Pour monter le partage dans le lecteur x :
 
 ```bash
-mount 10.100.1.6:/srv/exports x: -o fileaccess=777
+mount 10.100.2.90:/srv/exports x: -o fileaccess=777
 ```
 
 ### Linux
@@ -91,7 +91,7 @@ Installez le package nfs-common.
 Pour monter le partage sur le répertoire "/tmp/nfs" :
 
 ```bash
-mount 10.100.1.6:/srv/exports /tmp/nfs
+mount 10.100.2.90:/srv/exports /tmp/nfs
 ```
 
 ## Exercice 2 - Nginx
